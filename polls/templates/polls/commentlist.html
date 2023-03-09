@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- 3:58 AM FIN, css html is fun-->
+
+{# Load the tag library #}
+
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<head>
+    <title> List of all comments for bx7ugx's polls page </title>
+    <meta charset="UTF-8">
+
+    <style>
+        h1 {
+            color: darkblue;
+            text-align: center;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-variant: small-caps;
+        }
+
+        h3 {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 24px;
+
+        }
+
+        p {
+            margin: 15px;
+            border-style: dotted;
+            border-width: 2px;
+            border-color: black;
+            
+            padding: 15px;
+            height: 100px;
+        }
+
+        .comment {
+            padding: 15px;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 75%; 
+            position: relative;
+
+        }
+        
+        body {
+            background-color: aliceblue;
+        }
+
+        .goback {
+            padding: 10px;
+            width: 200px;
+            height:auto;
+        }
+
+    </style>
+
+</head>
+{% if all_comments_list %}
+
+<body>
+    <div class="goback">
+        <button>
+            <a href="{% url 'polls:index' %}">Back to home</a>
+        </button>
+    </div>
+
+    <h1> Previous Comments: </h1>
+    {% for comment in all_comments_list %}
+        <div class="comment">
+            <h3> 
+                <i> {{ comment.title }} </i>
+            </h3>
+            <p>
+                <b> Message: </b> {{ comment.text }} <br>
+            </p>
+        </div>
+        {% endfor %}
+</body>
+
+{% else %}
+<p> There are no comments. </p>
+{% endif %}

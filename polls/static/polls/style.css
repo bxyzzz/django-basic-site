@@ -1,0 +1,21 @@
+/* Just also changing font because why not, fiddled around until [10:47 PM FIN] */
+li a {
+    color: green;
+    font-family: Helvetica;
+}
+
+/* ### I'm going to add background image to HTML so i can make it change opacity when u hover over it
+body {
+    background: white url("images/amogus.PNG") no-repeat;
+    opacity: 1;
+}
+*/
+
+img {
+    opacity: 0.05;
+}
+
+img:hover {
+    opacity: 1;
+}
+

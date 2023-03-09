@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- my brain is fried [12:16 AM] literally can't think at all bruh -->
+<!-- dude... if you put a space between { and % it literally reads it as straight-text... i wasted so much time on that -->
+
+{# Load the tag library #}
+
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title> Comment page for bx7ugx's polls page </title>
+    <meta charset="UTF-8">
+        <!-- SOUCE: https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html -->
+        <!-- Wanted to align my text boxes but didn't know the convention (e.g. CSS or HTML?) [1:23 AM]-->
+    <style>
+      /* Remove the navbar's default margin-bottom and rounded borders */ 
+      .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+      
+      /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+      .row.content {height: 450px}
+      
+      /* Set gray background color and 100% height */
+      .sidenav {
+        padding-top: 20px;
+        background-color: #f1f1f1;
+        height: 100%;
+      }
+
+    form { display: table }
+    p { 
+        display: table-row;
+    }
+    label { display: table-cell }
+    input { 
+        display: table-cell ;
+    }
+    textarea { 
+        display: table-cell ;
+    }
+
+    .right {
+        left: 410px;
+        position: relative;
+    }
+
+    </style>
+</head>
+
+<body>
+    <!-- NAVIGATION TOP BAR: -->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'polls:index' %}"> Home </a></li>
+                <li><a href="{% url 'polls:comments' %}">Make a Comment!</a></li>
+                <li><a href="{% url 'polls:commentlist' %}">Comments</a></li>
+
+              </ul>
+            </div>
+          </div>
+          
+    </nav>
+<!-- CONTAINER FOR MIDDLE SECTION: -->
+    <div class="container-fluid text-center">    
+        <!-- SIDEBAR: -->
+
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <h2> Empty: </h2>
+            </div>
+
+        <!-- BODY TEXT: -->
+            <div class="col-sm-8 text-left"> 
+                <h1> Comment your thoughts below! </h1>
+                    <legend>
+                        <form action="{% url 'polls:addcomment' %}" method="post" class="form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% bootstrap_field field %}
+                        {% endfor %}
+                        <p>
+                            <label for="commenttitle"> <b> Title: </b> </label>
+                            <input class="form-control" type="text" id="commenttitle" name="commenttitle" value="{{ comment.title }}">
+                        </p>
+
+                        <p>
+                            <label for="commenttext"> <b> Comment: </b> </label>
+                            <textarea class="form-control" id="commenttext" name="commenttext" rows="5" cols="50" value="{{ comment.text }}"></textarea>
+                        </p>
+
+                        <div class="right">    
+                    
+                            <input type="submit" class="btn btn-info" value="Add Comment!">
+                        </div>
+
+                        </form>
+                    </legend>
+                <hr>
+                <!-- ERRORS APPEAR ON BOTTOM UNDER <HR> (the thematic break) -->
+                {% for message in messages %}
+            
+                    <!-- SOURCE: https://stackoverflow.com/questions/47923952/python-django-how-to-display-error-messages-on-invalid-login -->
+                    <div class="alert alert-fail">
+                        <a class="close" href="#" data-dismiss="alert"> x </a>
+                            {{ message }}
+                    </div>
+                    
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
